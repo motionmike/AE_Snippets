@@ -1,0 +1,31 @@
+app.beginUndoGroup("Camera and Null");
+  
+var myComp = app.project.activeItem;
+
+
+///CREATE CAMERA///
+
+
+var w = myComp.width /2 ;
+var h = myComp.height /2 ;
+var newCamera = myComp.layers.addCamera("Camera",[w,h]);
+newCamera.position.setValue([w,h,-2500]);
+
+ 
+///CREATE NULL///
+var pullNull = myComp.layers.addNull();
+pullNull.threeDLayer = true;
+pullNull.position.dimensionsSeparated = true;
+
+///RENAMES NULL//
+pullNull.name = "Pull";
+
+///CREATE NULL 2////
+var rotateNull = myComp.layers.addNull();
+rotateNull.threeDLayer = true;
+rotateNull.name = "Rotate";
+
+
+///PARENTS CAMERA TO NULL//
+myComp.layer("Camera").parent = pullNull;
+myComp.layer("Pull").parent = rotateNull;
